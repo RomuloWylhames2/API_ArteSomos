@@ -12,7 +12,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "https://artesomos.herokuapp.com",
+  "host": "artesomos.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
@@ -20,7 +20,7 @@
       "description": "Contem todas as tabelas listadas acima"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "paths": {
     "/produtos": {
       "post": {
