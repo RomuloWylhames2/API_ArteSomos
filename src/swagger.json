@@ -1,0 +1,405 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "REST-API Arte Somos, projeto final do Gama Xp 39 da Equipe 10.",
+    "version": "1.0.0",
+    "title": "API - ArteSomos",
+    "contact": {
+      "email": "andrecruzdev@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3100",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Produtos e Categorias",
+      "description": "Contem todas as tabelas listadas acima"
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/produtos": {
+      "post": {
+        "tags": ["produtos"],
+        "summary": "Cria uma novo produto",
+        "description": "Cria uma novo produto e o adiciona da base de dados",
+        "operationId": "criaProduto",
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "description": "Produto criado com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Produtos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": ["produtos"],
+        "summary": "Busca todos os produtos",
+        "description": "Busca todos os Produtos na base de dados",
+        "operationId": "buscaProduto",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Produtos retornados com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProdutosCategoria"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/produtos/categoria/{Id}": {
+      "get": {
+        "tags": ["produtos"],
+        "summary": "Busca todos os produtos por categoria",
+        "description": "Busca todos os produtos existentes baseado no parametro Id da categoria",
+        "operationId": "buscaProdutoPorCategoria",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "categoriaId",
+            "in": "path",
+            "description": "ID da categoria no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produtos por categoria retornados com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Produtos"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/produtos/{Id}": {
+      "get": {
+        "tags": ["produtos"],
+        "summary": "Busca o produto pelo Id",
+        "description": "Busca de produto pelo Id de acordo com o parametro inserido na URL",
+        "operationId": "buscaProdutoId",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "produtoId",
+            "in": "path",
+            "description": "ID da categoria no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto 'X' retornado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/ProdutosCategoria"
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "put": {
+        "tags": ["produtos"],
+        "summary": "Modifica o produto pelo Id",
+        "description": "Modifica o produto pelo Id de acordo com o parametro inserido na URL",
+        "operationId": "modificaProduto",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "produtoId",
+            "in": "path",
+            "description": "ID do produto no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto 'X' alterado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Produtos"
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["produtos"],
+        "summary": "Exclui o produto pelo Id",
+        "description": "Exclui o produto pelo Id de acordo com o parametro inserido na URL",
+        "operationId": "excluiProduto",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "produtoId",
+            "in": "path",
+            "description": "ID do produto no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto 'X' deletado com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Produtos"
+            }
+          },
+          "404": {
+            "description": "Assinatura não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/categorias": {
+      "post": {
+        "tags": ["categorias"],
+        "summary": "Adiciona uma nova categoria a coleção",
+        "description": "Adiciona uma nova categoria na base de dados",
+        "operationId": "adicionaCategoria",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Categoria 'X' Criada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categorias"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": ["categorias"],
+        "summary": "Busca todas as categorias",
+        "description": "Busca todas as categorias existentes na base de dados",
+        "operationId": "buscaCategoria",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Categorias retornadas com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Categorias"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    },
+    "/categorias/{Id}": {
+      "put": {
+        "tags": ["categorias"],
+        "summary": "Modifica as categorias por Id",
+        "description": "Modifica uma categoria de acordo com o parametro colocado no Id",
+        "operationId": "modificaCategoria",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "categoriaId",
+            "in": "path",
+            "description": "ID da categoria no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria 'X' modificada com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Categorias"
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["categorias"],
+        "summary": "Exlcui as categorias por Id",
+        "description": "Exclui uma categoria de acordo com o parametro colocado no Id",
+        "operationId": "excluiCategoria",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "categoriaId",
+            "in": "path",
+            "description": "ID da categoria no banco de dados",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria 'X' excluida com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Categorias"
+            }
+          },
+          "404": {
+            "description": "Categoria não encontrada"
+          },
+          "500": {
+            "description": "Erro interno no servidor"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Produtos": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "preco": {
+          "type": "double"
+        },
+        "novo_preco": {
+          "type": "string"
+        },
+        "parcela": {
+          "type": "string"
+        },
+        "detalhes": {
+          "type": "string"
+        },
+        "encomenda": {
+          "type": "string"
+        },
+        "dias_producao": {
+          "type": "string"
+        },
+        "imagem": {
+          "type": "string"
+        },
+        "id_vendedor": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id_categoria": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ProdutosCategoria": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "preco": {
+          "type": "double"
+        },
+        "novo_preco": {
+          "type": "string"
+        },
+        "parcela": {
+          "type": "string"
+        },
+        "detalhes": {
+          "type": "string"
+        },
+        "encomenda": {
+          "type": "string"
+        },
+        "dias_producao": {
+          "type": "string"
+        },
+        "imagem": {
+          "type": "string"
+        },
+        "id_vendedor": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id_categoria": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "categoria": {
+          "type": "string"
+        }
+      }
+    },
+    "Categorias": {
+      "type": "object",
+      "properties": {
+        "id_categoria": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "categoria": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
